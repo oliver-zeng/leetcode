@@ -9,8 +9,8 @@ private:
     // 数组元素赋初值，用逗号隔开，最后一个元素没有逗号
     // {}用于数组元素，或结构体赋初值
     string transfer[10] = {
-        "",		// 0
-        "",		// 1
+        "",	// 0
+        "",	// 1
         "abc",	// 2
         "def",	// 3
         "ghi",	// 4
@@ -30,9 +30,7 @@ private:
             res.push_back(tmp);
             return;
         }
-
-        char c = digits[index];
-        int num = transfer[c - '0'].size();
+        int num = transfer[digits[index] - '0'].size();
 
         for (int i = 0; i < num; i++) {
             represent (digits, index + 1, tmp + transfer[digits[index] - '0'][i]);
@@ -43,6 +41,8 @@ private:
 public:
     vector<string> letterCombinations(string digits) {
         max_index = digits.size();
+        res.clear();
+        if (max_index == 0) return res;
         represent(digits, 0, "");
         return res;
     }
