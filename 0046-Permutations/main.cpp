@@ -30,6 +30,8 @@ private:
             if (!used[i]) {
                 if (g_debug)
                     cout << "[" << index << "] choose nums[" << i << "]" << endl;
+                // 回溯到底后，若有需要的话，还需在递归结束，回溯完成后
+                // 把之前压栈到p的相关变量退出来
                 used[i] = true;
                 tmp.push_back(nums[i]);
                 calcPermute(nums, index + 1);
