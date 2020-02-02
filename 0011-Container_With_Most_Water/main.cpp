@@ -2,7 +2,9 @@
 #include<vector>
 using namespace std;
 
-class Solution {
+//子序列（地址连续）的窗口
+//通过  原地相向两路 还是 同向两路 来滑动确立最值窗口的区别是
+//看如何修改l & r能寻求到最值class Solution {
 public:
     int maxArea(vector<int>& height) {
         int sz = height.size();
