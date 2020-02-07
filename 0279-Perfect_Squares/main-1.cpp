@@ -8,7 +8,7 @@ private:
             memo[n] = min(1 + calcNum(n - i * i), memo[n]);
         return memo[n];
     }
-    
+
 public:
     int numSquares(int n) {
         // 背包容量为[0, n]
