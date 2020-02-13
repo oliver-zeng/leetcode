@@ -86,4 +86,13 @@ public:
         stack.pop();
         while(!stack.empty())
             cur->next = stack.top(), cur = cur->next, stack.pop();
+
+        // 而且因为栈里丢进去就是节点，而不是节点里的值
+        // 这样把他们串起来就异常简单了，第一个就是头了，根本不需要dummyHead
+        ListNode* ret = stack.top(), *cur = ret;
+        stack.pop();
+        while(!stack.empty())
+            cur->next = stack.top(), cur = cur->next, stack.pop();
+        return ret;
+
 */
