@@ -6,6 +6,10 @@
  *     ListNode(int x) : val(x), next(NULL) {}
  * };
  */
+// 链表的计数，与遍历条件是不一样的
+// 计数while(cur->next)，遍历while(cur)
+// 因为cur为在循环体力走到NULL，下一次不并会操作NULL
+// 但在循环体里NULL却会被计数到，所以有区别
 class Solution {
 private:
     bool g_debug = false;
