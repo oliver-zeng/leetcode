@@ -12,7 +12,7 @@ public:
         vector<bool> visited(n + 1, false);
         visited[n] = true;
 
-        // dfs
+        // bfs
         while (!q.empty()) {
             int num = q.front().first;
             int level = q.front().second;
