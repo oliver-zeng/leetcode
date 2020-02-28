@@ -50,7 +50,9 @@ public:
         // 但是record统计的斜率，必须是以每个点为轴单算的
         // 不能相互打架，因此record的定义必须要放到第一重循环里面
         for (int i = 0; i < points.size(); i++) {
-            // key不能是pair类型，将pair表示成值为
+            // map的key可以是pair类型
+            // map<pair<int, int>, int> record;
+            // 而unordered_map的key不能是pair类型，将pair表示成值为
             // "pair.first#pair.second"的string
             unordered_map<string, int> record;
             int same_point = 0;
