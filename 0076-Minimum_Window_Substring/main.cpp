@@ -17,7 +17,7 @@ public:
         int left, right, match;
         left = right = match = 0;
         for (; right < s.size(); right++) {
-            // 只在window里统计need中需要的char就够了
+            // 只在window里统计goal中需要的char就够了
             if (goal.count(s[right])) {
                 window[s[right]]++;
                 if (window[s[right]] == goal[s[right]])
@@ -30,11 +30,13 @@ public:
                     res_left = left;
                     res_sz = right - left + 1;
                 }
-                // 在计数里用count代替find
-                // 一旦有value--的操作，变为0就不该再找到了
+                // cont & find
+                // 使用count，返回的是被查找键为key的键值对个数。非multi不存在相同key，返回值只能是1或0。
+                // 使用find，返回的是被查找元素的位置，没有则返回map.end()
+                // 所以如果只是想看有没有，而不是找到位置进行操作的话，用cont更简洁
                 if (goal.count(s[left])) {
                     window[s[left]]--;
-                    // 只有真的小于need了，才是match要减的时候
+                    // 只有真的小于goal了，才是match要减的时候
                     if (window[s[left]] < goal[s[left]])
                         match--;
                 }
