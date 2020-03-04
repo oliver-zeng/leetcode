@@ -94,18 +94,18 @@ public:
         // 因为find的结束条件是p = parent[p]
         UnionFind uf = UnionFind(row * col + 1);
         dummy = row * col;
-        // 在二维[i][j]对应到并查集里点的个数是parent[i * row + j % col]
+        // 在二维[i][j]对应到并查集里点的个数是parent[i * col + j]
         for (int i = 0; i < row; i++) {
             if (board[i][0] == 'O')
                 uf.parent[i * col] = dummy;
             if (board[i][col - 1] == 'O')
-                uf.parent[i * col + (col - 1) % col] = dummy;
+                uf.parent[i * col + col - 1] = dummy;
         }
         for (int j = 0; j < col; j++) {
             if (board[0][j] == 'O')
-                uf.parent[j % col] = dummy;
+                uf.parent[j] = dummy;
             if (board[row - 1][j] == 'O')
-                uf.parent[(row - 1) * col + j % col] = dummy;
+                uf.parent[(row - 1) * col + j] = dummy;
         }
         // 用并查集遍历全部点
         for (int i = 0; i < row; i++)
@@ -119,7 +119,7 @@ public:
                             // 这题必须保证，跟边上的'O'合并后，还是边上'O'的值
                             // 所以要定制化一下，并查集的union操作
                             if (board[x][y] == 'O')
-                            unionElm(x * col + y % col, i * col + j % col, uf);
+                            unionElm(x * col + y, i * col + j, uf);
                     }
                 }
                     
@@ -127,7 +127,7 @@ public:
         // 只改变不与边上'O'连通的'O'点即可
         for (int i = 0; i < row; i++)
             for (int j = 0; j < col; j++) {
-                if (board[i][j] == 'O' && uf.find(i * col + j % col) != dummy)
+                if (board[i][j] == 'O' && uf.find(i * col + j) != dummy)
                     board[i][j] = 'X';
             }
          return;  
