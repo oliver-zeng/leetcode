@@ -17,14 +17,15 @@ private:
     //  / \
     // 1   2
     // left 2i+1, right 2i+2, parent (i-1)/2
-    // last not leaf count/2 - 1 (since 3/2 - 1 = 0 )
+    // last not leaf (last_index - 1)/2, last_index = count - 1
+    //count/2 - 1 (since 3/2 - 1 = 0 )
 
     //  root 1
     //   1
     //  / \
     // 2   3
     // left 2i, right 2i+1, parent i/2
-    // last not leaf count/2 (since 3/2 = 1 )
+    // last not leaf last_index/2, last_index = count
 
     // shiftXX要向着有序方向移动才有意义
     // only for leaf => push()
@@ -45,8 +46,10 @@ private:
         // if child exist
         while (2*i + 1 < sz) {
             int child = 2*i + 1;
+            // 如果有右孩子，取两个孩子最小值的index去与parent比较
             if (child + 1 < sz && data[child] > data[child + 1])
                 child++;
+            // 若真的跟孩子发生了交换，就要对交换后的孩子重复执行向下的堆调整shiftDown操作
             if (data[i] > data[child]) {
                 swap(data[i], data[child]);
                 i = child;
