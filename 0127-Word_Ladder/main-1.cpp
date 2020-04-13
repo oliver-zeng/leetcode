@@ -3,7 +3,7 @@ class Solution {
 public:
     int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
         // 在wordList [begin, end) 里找到 beginWord & endWord 的位置
-        // 没没找到返回的是end，对end - begin == wordList.size()做相应的处理
+        // 没找到返回的是end，对end - begin == wordList.size()做相应的处理
         int end = find(wordList.begin(), wordList.end(), endWord) - wordList.begin();
         if(end == wordList.size())
             return 0;
