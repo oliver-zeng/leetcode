@@ -30,6 +30,7 @@ public:
         res.pop_back();
         // remove ",null"
         int sz = strlen(",null");
+        // 子串题要特别注意substr里的第一个参数有效性的判定
         while (res.size() >= sz && res.substr(res.size() - sz, sz) == ",null")
             res.erase(res.size() - sz, sz);
         return res;
@@ -50,7 +51,9 @@ public:
         while (!qe.empty()) {
             TreeNode* node = qe.front();
             qe.pop();
+            // 注意这里不能是begin = i+1，否则i就不是从begin开始，变成begin-1了
             int begin = ++i;
+            // 子串题要特别注意substr里的第一个参数有效性的判定
             if (begin >= data.size()) break;
             while (i < data.size() && data[i] != ',') i++;
             tmp = data.substr(begin, i-begin);
@@ -58,9 +61,12 @@ public:
                 node->left = new TreeNode(stoi(tmp, NULL, 10));
                 qe.push(node->left);
             }
+            // 放在后面，是为了防止最后一个不以','结尾的节点没有插进去就跳出了
             if (i >= data.size()) break;
-            
+
+            // 注意这里不能是begin = i+1，否则i就不是从begin开始，变成begin-1了
             begin = ++i;
+            // 子串题要特别注意substr里的第一个参数有效性的判定
             if (begin >= data.size()) break;
             while (i < data.size() && data[i] != ',') i++;
             tmp = data.substr(begin, i-begin);
@@ -68,8 +74,8 @@ public:
                 node->right = new TreeNode(stoi(tmp, NULL, 10));
                 qe.push(node->right);
             }
+            // 放在后面，是为了防止最后一个不以','结尾的节点没有插进去就跳出了
             if (i >= data.size()) break;
-            
         }
         return root;
     }
