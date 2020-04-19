@@ -10,9 +10,8 @@
 class Solution {
 public:
     ListNode* sortList(ListNode* head) {
-        if (!head)
-            return NULL;
-        if (!head->next)
+        // 排序问题，少于两个节点就直接返回
+        if (!head || !head->next)
             return head;
         // dummy 用于两种情况：
         // 1. 既要删head，又要删非head时
