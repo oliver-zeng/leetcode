@@ -13,7 +13,7 @@ public:
         while (left < sz && (nums[left] % 2 == 0)) left++;
         // right找到第k个奇数
         right = left + 1;
-        while (--k) {
+        while (--k && right < sz) {
             while (right < sz && (nums[right] % 2 == 0)) right++;
             // 这里因为会停在第一个不满足的地方，所以要找第k-1个不满足的地方
             // 每次都需要，把找到的不满足的地方，往后挪一下，这样才能去找下一个
