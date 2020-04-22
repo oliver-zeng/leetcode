@@ -7,10 +7,13 @@ public:
             need[elm]++;
         int left = 0, right = 0, match = 0;
         while (right < s2.size()) {
-            // 注意这里必须先用 need.count 判断后 unorder_map 才能使用
+            // 因为后面有用到 need.size()
+            // 所以这里必须先用 need.count 判断后 unorder_map need 才能使用
             // 否则need[s2[right]]会出现need中没有的key，加大need中key的数量
+            // 至于window因为没用到window.size() 所以不需要 count，写在哪里都可以
+            window[s2[right]]++; // 这两个位置都可以
             if (need.count(s2[right])) {
-                window[s2[right]]++;
+                //window[s2[right]]++; // 这两个位置都可以
                 if (window[s2[right]] == need[s2[right]])
                     match++;
             }
@@ -33,8 +36,9 @@ public:
             while (match == need.size()) {
                 if (right - left + 1 == s1.size())
                     return true;
+                window[s2[left]]--;  // 这两个位置都可以
                  if (need.count(s2[left])) {
-                    window[s2[left]]--;
+                    //window[s2[left]]--;  // 这两个位置都可以
                     if (window[s2[left]] < need[s2[left]])
                         match--;
                 }
