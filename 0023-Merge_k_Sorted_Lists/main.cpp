@@ -7,41 +7,25 @@
  * };
  */
 class Solution {
-private:
-    ListNode* popList(ListNode* &list) {
-        ListNode *tmp = list;
-        list = list->next;
-        return tmp;
-    }
 public:
     ListNode* mergeKLists(vector<ListNode*>& lists) {
-        // greater是可以比较pair<key, val>的，会比较key的大小
-        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
-        // 先每个装一个
-        int sz = lists.size();
-        ListNode *tmp;
-        for (int i = 0; i < sz; i++) {
-            if (lists[i]) {
-                tmp = popList(lists[i]);
-                pq.push(make_pair(tmp->val, i));
-                delete tmp;
-            }
+        priority_queue<pair<int, ListNode*>, vector<pair<int, ListNode*>>, greater<pair<int, ListNode*>>> pq;
+        for (int i = 0; i < lists.size(); i++) {
+            if (lists[i])
+                pq.push(make_pair(lists[i]->val, lists[i]));
         }
-        // 将找到最值的再补上一个，插入链表即可
-        ListNode *dummyHead = new ListNode(-1);
-        ListNode *cur = dummyHead;
+        ListNode *dummy = new ListNode(-1), *pre = dummy;
         while (!pq.empty()) {
-            cur->next = new ListNode(pq.top().first);
-            cur = cur->next;
-            if (lists[pq.top().second]) {
-                tmp = popList(lists[pq.top().second]);
-                pq.push(make_pair(tmp->val, pq.top().second));
-                delete tmp;
-            }
+            ListNode *tmp = pq.top().second;
             pq.pop();
+            if (tmp->next)
+                pq.push(make_pair(tmp->next->val, tmp->next));
+            tmp->next = NULL;
+            pre->next = tmp;
+            pre = pre->next;
         }
-        tmp = dummyHead->next;
-        delete dummyHead;
-        return tmp;
+        ListNode *res = dummy->next;
+        delete dummy;
+        return res;
     }
 };
