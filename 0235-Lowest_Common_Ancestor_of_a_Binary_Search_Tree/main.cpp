@@ -1,8 +1,5 @@
 class Solution {
 
-private:
-    TreeNode* ret = 0;
-
 public:
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
         if (!root)
