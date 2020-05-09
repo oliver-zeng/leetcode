@@ -1,22 +1,21 @@
-// leetcode 69. Sqrt(x)
 class Solution {
 public:
     int mySqrt(int x) {
-        // 把不适用的 1 先抛去
-        if (x == 1)
-            return x;
-        // right 不用从 x 开始，因为除去1开根后至少是一半的
-        int left = 2, right = x/2;
+        int left = 1, right = x;
+        // 尽管mid是在[left, right]之间，但由于有mid*mid操作
+        // 所以mid类型是left right类型的两倍
         long long mid;
         while (left <= right) {
             mid = left + (right - left) / 2;
-            if (mid * mid > x)
-                right = mid - 1;
-            else if (mid * mid < x)
+            if (mid * mid < x)
                 left = mid + 1;
+            else if (mid * mid > x)
+                right = mid - 1;
             else
                 return mid;
         }
+        // left是mid*mid < x，right是mid*mid > x
+        // 所以当循环结束时，right是最后一个mid*mid < x
         return right;
     }
 };
