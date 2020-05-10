@@ -1,6 +1,6 @@
 class MinStack {
     stack<int> data;
-    // 用helper记录data栈中的最小元素
+    // 用单调栈helper记录data栈中的最小元素
     // 新加入的元素，只有小于等于栈顶元素，才入栈helper。
     // 只有当出栈元素等于栈顶元素时，helper才出栈。
     stack<int> helper;
