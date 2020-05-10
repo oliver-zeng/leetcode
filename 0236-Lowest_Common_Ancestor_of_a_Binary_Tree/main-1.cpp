@@ -3,13 +3,13 @@
 // 那另一个就在找到的这一个的孩子里面
 class Solution {
 public:
+    // lowestCommonAncestor 返回不为空，有两种可能：
+    // 1. 在有p、q两点的情况下，返回的是公共祖先
+    // 2. 在只有p or q一点的情况下，返回的是这个点
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
 
-        if (!root)
-            return NULL;
-
         // 如果root就是答案
-        if (root == p || root == q)
+        if (!root || root == p || root == q)
             return root;
 
         // 分别到左右子树中去找答案
