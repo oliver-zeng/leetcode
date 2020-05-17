@@ -15,11 +15,15 @@ public:
         if (helper.empty())
             helper.push(x);
         else
+            // 特别注意，helper应该是个伪单调栈，要把“等于”也考虑进去
+            // 因为出栈的时候，只要等于最小元素就会出栈
+            // 因此如果有多个相等的最小值，不能只入栈一个
             if (x <= helper.top())
                 helper.push(x);
     }
     
     void pop() {
+        // 只要等于最小元素就会出栈
         if (data.top() == helper.top())
             helper.pop();
         data.pop();
