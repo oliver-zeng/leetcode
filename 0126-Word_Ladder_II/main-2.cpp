@@ -71,9 +71,6 @@ public:
         vector<string> path({wordList[begin]});
         qe.push(make_pair(begin, path));
         bool find = false;
-        // 改成获取每层到vec，然后找到end的时候，仍是不标记level，直接刷新flag
-        // 等插入新层的时候，看到flag就直接break
-        // 先写出层序遍历的完整输出，再调成后标记每层节点，最后调成提前break
         while (!qe.empty()) {
             int sz = qe.size();
             unordered_set<int> tmp;
