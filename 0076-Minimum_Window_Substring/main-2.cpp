@@ -14,9 +14,15 @@ public:
         while (right < s.size()) {
             if (need.count(s[right])) {
                 window[s[right]]++;
+                // Match数量匹配上了，match++
+                // 再匹配上了match不会加加但也不会减
+                // 所以最终在满足时的window是大于等于需求量的
                 if (window[s[right]] == need[s[right]])
                     match++;
             }
+            // 滑动窗口都满足超额完成后，再回头减，找最优
+            // 此时不断移动Left，若还满足，就缩减窗口，记录最优解
+            // 直至left不满足后，right重新开始移动
             while (match == need.size()) {
                 if (res > right - left + 1) {
                     res = right - left + 1;
