@@ -20,28 +20,31 @@ public:
             st2.push(l2->val);
             l2 = l2->next;
         }
-        int carry = 0;
         ListNode *dummy = new ListNode(-1);
-        ListNode *p = dummy;
+        int carry = 0;
         while (!st1.empty() || !st2.empty() || carry) {
-            int num1 = st1.empty() ? 0 : st1.top();
-            int num2 = st2.empty() ? 0 : st2.top();
-            if (!st1.empty())
+            int num = carry;
+            if (!st1.empty()) {
+                num += st1.top();
                 st1.pop();
-            if (!st2.empty())
+            }
+            if (!st2.empty()) {
+                num += st2.top();
                 st2.pop();
-            int sum = num1 + num2 + carry;
-            if (sum >= 10) {
+            }
+            if (num >= 10) {
+                num -= 10;
                 carry = 1;
-                sum -= 10;
-            } else
+            } else {
                 carry = 0;
+            }
             // 因为是从高到低输出。所以每次新节点要插入头节点
-            p = new ListNode(sum);
+            // 这里要用头插法，才能倒序输出栈中的结果
+            ListNode *p = new ListNode(num);
             p->next = dummy->next;
             dummy->next = p;
         }
-        p = dummy->next;
+        ListNode *p = dummy->next;
         delete dummy;
         return p;
     }
