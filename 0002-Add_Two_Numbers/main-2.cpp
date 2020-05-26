@@ -10,9 +10,10 @@ class Solution {
 public:
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
         ListNode *p1 = l1, *p2 = l2, *dummyHead = new ListNode(-1), *p = dummyHead;
-        int carry = 0, num;
+        int carry = 0;
         while (p1 || p2 || carry) {
-            num = 0;
+            int num = carry;
+            // 注意p1 & p2在用val前先判存在
             if (p1) {
                 num += p1->val;
                 p1 = p1->next;
@@ -21,8 +22,7 @@ public:
                 num += p2->val;
                 p2 = p2->next;
             }
-            if (carry)
-                num += carry;
+            // num < 10时，一定要把carry置0，否则死循环
             if (num >= 10) {
                 num = num % 10;
                 carry = 1;
