@@ -1,16 +1,18 @@
 class Solution {
 public:
     int lengthOfLIS(vector<int>& nums) {
-        if (0 == nums.size()) return 0;
-        vector<int> memo = vector<int>(nums.size(), 1);// 0 -> wrong
-        //memo[0] = 1; -> no need
-        for (int i = 1; i < nums.size(); i++)
-            for (int j = 0; j < i; j++)
-                if(nums[i] > nums[j])
-                    memo[i] = max(memo[i], memo[j]+1);
-        int res = 0;
-        for (int i = 0; i < nums.size(); i++)
-            res = max(res, memo[i]);
+        int sz = nums.size();
+        // 要加为空的error handling
+        if (sz == 0) return 0;
+        vector<int> dp(sz, 1);
+        int res = 1; // 这里初值应该为1，当只有一个数，无法进入循环时，结果就是1
+        for (int i = 1; i < sz; i++) {
+            for (int j = 0; j < i; j++) {
+                if (nums[j] < nums[i])
+                    dp[i] = max(dp[i], dp[j] + 1);
+            }
+            res = max(res, dp[i]);
+        }
         return res;
     }
 };
