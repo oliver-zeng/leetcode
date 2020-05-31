@@ -5,6 +5,7 @@ public:
         // 此模板是[left, right)的滑块
         int left = 0, right = 0, res = 0;
         while (right < s.size()) {
+            // 先移动左窗口，确保能把右边最新的加入进来
             // left++一次不一定能让right重新满足，所以用while
             while (map.count(s[right]))
                 map.erase(s[left++]);
