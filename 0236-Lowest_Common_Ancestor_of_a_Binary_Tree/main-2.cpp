@@ -8,28 +8,18 @@
  * };
  */
 class Solution {
-private:
-    TreeNode* res = NULL;
-    bool dfs (TreeNode* root, TreeNode* p, TreeNode* q) {
-
-        if (!root) return false;
-
-        bool mid = false;
-        if (root == p || root == q)
-            mid = true;
-        bool left = dfs(root->left, p, q);
-        bool right = dfs(root->right, p, q);
-        // bool加法用法
-        // 三个bool相加 >= 2，表示三个条件有两个满足
-        // 左中右里面能找到两个点，那中间的点就是LCA
-        if (left + mid + right >= 2)
-            res = root;
-
-        return (left + mid + right > 0);
-    }
 public:
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        dfs (root, p, q);
-        return res;
+        if (!root) return NULL;
+        if (root->val == p->val || root->val == q->val)
+            return root;
+        TreeNode* left = lowestCommonAncestor(root->left, p, q);
+        TreeNode* right = lowestCommonAncestor(root->right, p, q);
+        // 两边都为空是可能的
+        // 因为在递归过程中，查找的子树一个要找的节点都没有
+        // 这时要返回NULL，此时不管另一边是否找到，直接返回另一边结果即可
+        if (!left) return right;
+        if (!right) return left;
+        return root;
     }
 };
